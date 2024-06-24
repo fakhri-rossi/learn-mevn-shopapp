@@ -1,7 +1,7 @@
 <template>
   <div id="page-wrap" v-if="product">
     <div id="img-wrap">
-      <img :src="product.imageUrl" alt="">
+      <img :src="`http://localhost:8000${product.imageUrl}`" alt="">
     </div>
 
     <div id="product-details">
@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { products } from '../../data-seed'
+// import { products } from '../../data-seed'
+import axios from 'axios';
 import NotFoundVue from '../errors/NotFound.vue'
 
 export default {
@@ -26,18 +27,13 @@ export default {
   },
   data(){
     return {
-      products
+      product: {}
     }
   },
-  computed: {
-    product(){
-      return this.products.find((p) => {
-        return p.id === this.$route.params.id
-      })
-    }
-  },
-  mounted(){
-    console.log(this.product);
+  async created(){
+    const { id } = this.$route.params;
+    const result = await axios.get(`http://localhost:8000/api/products/${ id }`);
+    this.product = result.data;
   }
 }
 </script>
