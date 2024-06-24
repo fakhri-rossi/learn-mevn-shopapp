@@ -40,7 +40,6 @@ export default {
   async created(){
     const { user_id } = this.$route.params;
     const result = await axios.get(`http://localhost:8000/api/orders/${ user_id }`);
-    console.log(result.data);
     this.cartItems = result.data.cart_items;
   }
 }
