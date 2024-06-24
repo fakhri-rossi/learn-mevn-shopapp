@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'product' }" id="products-link">
       <h1>VueStore</h1>
     </router-link>
-    <router-link :to="{ name: 'cart' }" id="cart-link">
+    <router-link :to="{ name: 'cart', params:{user_id: '1'}}" id="cart-link">
         <button>Cart</button>
     </router-link>
   </div>

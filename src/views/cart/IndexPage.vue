@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { cartItems } from '@/data-seed';
+// import { cartItems } from '@/data-seed';
+import axios from 'axios';
 import ItemCartVue from '@/components/ItemCart.vue';
 
 export default {
@@ -26,7 +27,7 @@ export default {
   },
   data(){
     return {
-      cartItems
+      cartItems: []
     }
   },
   computed:{
@@ -35,6 +36,12 @@ export default {
         (sum, item) => sum + Number(item.price), 0
       )
     }
+  },
+  async created(){
+    const { user_id } = this.$route.params;
+    const result = await axios.get(`http://localhost:8000/api/orders/${ user_id }`);
+    console.log(result.data);
+    this.cartItems = result.data.cart_items;
   }
 }
 </script>
